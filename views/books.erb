@@ -1,5 +1,12 @@
 <h1>All Books</h1>
-
+<div class="row">
 <% for book in @books %>
-    <p><a href="/books/<%= book[:id] %>"><%= book[:title]%></a> by <%= book[:author]%></p>
+   <div class="col-sm-4">
+ <div class="card mb-3">
+    <b><center><p><a href="/books/<%= book[:id] %>"><%= book[:title]%></a></p></b>
+    <br>
+    <p>by <%= book[:author]%></p></center>
+</div>
+</div>
 <% end %>
+</div>
