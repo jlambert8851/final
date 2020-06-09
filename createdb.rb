@@ -19,7 +19,8 @@ DB.create_table! :reviews do
 end
 DB.create_table! :users do
   primary_key :id
-  String :username
+  String :name
+  String :email
   String :password
 end
 
@@ -48,7 +49,7 @@ reviews_table.insert(book_id: 2,
                     rating: 2,
                     comments: "Gross"
                     )
-users_table.insert(id: 99,
-                    username: "test",
+users_table.insert(id: 1,
+                    name: "test",
                     password: "test"
                     )            

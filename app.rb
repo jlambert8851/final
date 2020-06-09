@@ -52,7 +52,7 @@ end
 post "/books/:id/reviews/create" do
     reviews_table.insert(:book_id => params["id"],
                        :rating => params["rating"],
-                       :user_id => "99",
+                       :user_id => @current_user[:id],
                        :comments => params["comments"])
     @book = books_table.where(:id => params["id"]).to_a[0]
     view "create_review"
