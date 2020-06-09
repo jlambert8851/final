@@ -32,8 +32,6 @@ get "/" do
     view "books"
 end
 
-######end of the line
-
 # Show a single book
 get "/books/:id" do
     @users_table = users_table
@@ -53,8 +51,8 @@ end
 # Receiving end of new review form
 post "/books/:id/reviews/create" do
     reviews_table.insert(:book_id => params["id"],
-                       :going => params["going"],
-                       :user_id => @current_user[:id],
+                       :rating => params["rating"],
+                       :user_id => "99",
                        :comments => params["comments"])
     @book = books_table.where(:id => params["id"]).to_a[0]
     view "create_review"

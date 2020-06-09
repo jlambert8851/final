@@ -7,4 +7,7 @@
                 <%= review[:comments] %>
                 Reviewed by <%= user[:username] %>
             <% end %>
+        <p class="mt-5">
+            <a href="/books/<%= @book[:id] %>/reviews/new" class="btn btn-primary">Write your review!</a>
+        </p>
 </div>

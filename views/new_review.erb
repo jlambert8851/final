@@ -1,0 +1,19 @@
+<h1>Review for <%= @book[:title] %> by <%= @book[:author] %> </h1>
+
+<form action="/books/<%= @book[:id] %>/reviews/create" method="POST">
+  <div class="form-group">
+    <label>What do you rate this book from 1 to 5 (5 is best)?</label>
+    <select class="form-control" name="rating">
+        <option value="5">5</option>
+        <option value="4">4</option>
+        <option value="3">3</option>
+        <option value="2">2</option>
+        <option value="1">1</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Comments</label>
+    <textarea class="form-control" rows="3" name="comments"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
