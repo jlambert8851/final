@@ -15,14 +15,20 @@ before { puts; puts "--------------- NEW REQUEST ---------------"; puts }       
 after { puts; }                                                                       #
 #######################################################################################
 
-# events_table = DB.from(:events)
-# rsvps_table = DB.from(:rsvps)
+books_table = DB.from(:books)
+reviews_table = DB.from(:reviews)
+users_table = DB.from(:users)
 
+before do
+    # SELECT * FROM users WHERE id = session[:user_id]
+    @current_user = users_table.where(:id => session[:user_id]).to_a[0]
+    puts @current_user.inspect
+end
 
 # Home page (all books)
 get "/" do
     # before stuff runs
-    #@events = events_table.all
+    @books = books_table.all
     view "books"
 end
 
@@ -31,29 +37,27 @@ end
 # Show a single book
 get "/books/:id" do
     @users_table = users_table
-    # SELECT * FROM events WHERE id=:id
-    @event = events_table.where(:id => params["id"]).to_a[0]
-    # SELECT * FROM rsvps WHERE event_id=:id
-    @rsvps = rsvps_table.where(:event_id => params["id"]).to_a
-    # SELECT COUNT(*) FROM rsvps WHERE event_id=:id AND going=1
-    @count = rsvps_table.where(:event_id => params["id"], :going => true).count
-    view "event"
+    # SELECT * FROM books WHERE id=:id
+    @book = books_table.where(:id => params["id"]).to_a[0]
+    # SELECT * FROM reviews WHERE book_id=:id
+    @reviews = reviews_table.where(:book_id => params["id"]).to_a
+    view "book"
 end
 
-# Form to create a new RSVP
-get "/events/:id/rsvps/new" do
-    @event = events_table.where(:id => params["id"]).to_a[0]
-    view "new_rsvp"
+# Form to create a new review
+get "/books/:id/reviews/new" do
+    @book = books_table.where(:id => params["id"]).to_a[0]
+    view "new_review"
 end
 
-# Receiving end of new RSVP form
-post "/events/:id/rsvps/create" do
-    rsvps_table.insert(:event_id => params["id"],
+# Receiving end of new review form
+post "/books/:id/reviews/create" do
+    reviews_table.insert(:book_id => params["id"],
                        :going => params["going"],
                        :user_id => @current_user[:id],
                        :comments => params["comments"])
-    @event = events_table.where(:id => params["id"]).to_a[0]
-    view "create_rsvp"
+    @book = books_table.where(:id => params["id"]).to_a[0]
+    view "create_review"
 end
 
 # Form to create a new user
