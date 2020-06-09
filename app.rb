@@ -42,10 +42,34 @@ get "/books/:id" do
     view "book"
 end
 
+# Form to add a new book
+get "/book/new" do
+
+if @current_user
+view "new_book"
+else
+        view "new_login2"
+end
+
+end
+
+# Receiving end of new book form
+post "/book/create" do
+    books_table.insert(:title => params["title"],
+                       :author => params["author"])
+                  
+    view "create_book"
+end
+
 # Form to create a new review
 get "/books/:id/reviews/new" do
     @book = books_table.where(:id => params["id"]).to_a[0]
-    view "new_review"
+ if @current_user
+     view "new_review"
+else
+   view "new_login2"
+end 
+
 end
 
 # Receiving end of new review form

@@ -1,5 +1,5 @@
 <h1>All Books</h1>
 
 <% for book in @books %>
-    <p><a href="/books/<%= book[:id] %>"><%= book[:title] %></a></p>
+    <p><a href="/books/<%= book[:id] %>"><%= book[:title]%></a> by <%= book[:author]%></p>
 <% end %>
